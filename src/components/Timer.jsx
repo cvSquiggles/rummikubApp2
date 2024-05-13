@@ -1,10 +1,10 @@
 import React from 'react';
-import { BsStopwatch } from "react-icons/bs";
+import { BsStopwatch, BsCircleFill, Bs1Circle, Bs2Circle } from "react-icons/bs";
 import styled from "styled-components";
 
 const TimeWrapper = styled.div`
-    margin-top:30vh;
-    width: 800px;
+    margin-top:2vh;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     background-color: #222;
@@ -17,7 +17,19 @@ const TimeWrapper = styled.div`
     padding: 1rem 0;
 
 .stop-watch {
-    font-size: 2rem;
+    font-size: 4rem;
+    margin-right: 1rem;
+}
+
+.circle-half {
+    font-size: 6rem;
+    margin-right: 1rem;
+    transform: scaleX(-1);
+    color: #222;
+}
+
+.circle-player-number {
+    font-size: 4rem;
     margin-right: 1rem;
 }
 
@@ -44,28 +56,38 @@ input:hover{
 `;
 
 
-export default function Timer({milliseconds, seconds, minutes,
-     hours, changeSeconds, changeMinutes, changeHours }) {
+export default function Timer({milliseconds, seconds, minutes,changeSeconds, 
+    changeMinutes, milliseconds2, seconds2, minutes2, changeSeconds2, changeMinutes2}) {
     
     return (
         <TimeWrapper>
-            <BsStopwatch className="stop-watch" />
-            <div className="d-flex flex-column">
-                <label>HH</label>
-                <input value={hours} onChange={changeHours}/>
-            </div>
+            <Bs1Circle className="circle-player-number" />
             <div className="d-flex flex-column">
                 <label>MM</label>
                 <input value={minutes} onChange={changeMinutes} />
-            </div>
+                </div>
             <div className="d-flex flex-column">
                 <label>SS</label>
                 <input value={seconds} onChange={changeSeconds} />
-            </div>
+                </div>
             <div className="d-flex flex-column">
                 <label>ms</label>
                 <input value={milliseconds} />
-            </div>            
+                </div>  
+            <BsCircleFill className="circle-half" />
+            <div className="d-flex flex-column">
+                <label>MM</label>
+                <input value={minutes2} onChange={changeMinutes2} />
+                </div>
+            <div className="d-flex flex-column">
+                <label>SS</label>
+                <input value={seconds2} onChange={changeSeconds2} />
+                </div>
+            <div className="d-flex flex-column">
+                <label>ms</label>
+                <input value={milliseconds2} />
+                </div>
+            <Bs2Circle className="circle-player-number" />          
         </TimeWrapper>
     )
 }
