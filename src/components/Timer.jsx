@@ -3,7 +3,7 @@ import { BsStopwatch, BsCircleFill, Bs1Circle, Bs2Circle } from "react-icons/bs"
 import styled from "styled-components";
 
 const TimeWrapper = styled.div`
-    margin-top:2vh;
+    margin-top:0;
     width: 100%;
     margin-left: auto;
     margin-right: auto;

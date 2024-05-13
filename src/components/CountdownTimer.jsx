@@ -70,6 +70,14 @@ const [milliseconds, setMilliseconds] = useState(0);
 const [minutes2, setMinutes2] = useState(30);
 const [seconds2, setSeconds2] = useState(0);
 const [milliseconds2, setMilliseconds2] = useState(0);
+//P1 turn timer
+const [turnMinutes, turnSetMinutes] = useState(1);
+const [turnSeconds, turnSetSeconds] = useState(0);
+const [turnMilliseconds, turnSetMilliseconds] = useState(0);
+//P2 turn timer
+const [turnMinutes2, turnSetMinutes2] = useState(1);
+const [turnSeconds2, turnSetSeconds2] = useState(0);
+const [turnMilliseconds2, turnSetMilliseconds2] = useState(0);
 // End of Time
 
 const [showEndScreen,setShowEndScreen]=useState({
@@ -82,6 +90,7 @@ useEffect(() => {
     if(isRunning){
         interval = setInterval (() => {
             if(isP1Turn){
+                //Round timer
                 if(milliseconds > 0) {
                     setMilliseconds((milliseconds) => milliseconds - 1);
                 } else if (seconds > 0) {
@@ -92,7 +101,19 @@ useEffect(() => {
                     setSeconds(59);
                     setMilliseconds(99);
                 } 
+                //Turn timer
+                if(turnMilliseconds > 0) {
+                    turnSetMilliseconds((turnMilliseconds) => turnMilliseconds - 1);
+                } else if (turnSeconds > 0) {
+                    turnSetSeconds((turnSeconds) => turnSeconds - 1);
+                    turnSetMilliseconds(99);
+                } else if(turnMinutes > 0) {
+                    turnSetMinutes((turnMinutes) => turnMinutes - 1);
+                    turnSetSeconds(59);
+                    turnSetMilliseconds(99);
+                } 
             }else {
+                //Round timer
                 if(milliseconds2 > 0) {
                     setMilliseconds2((milliseconds2) => milliseconds2 - 1);
                 } else if (seconds2 > 0) {
@@ -102,15 +123,28 @@ useEffect(() => {
                     setMinutes2((minutes2) => minutes2 - 1);
                     setSeconds2(59);
                     setMilliseconds2(99);
+                }
+                //Turn timer
+                if(turnMilliseconds2 > 0) {
+                    turnSetMilliseconds2((turnMilliseconds2) => turnMilliseconds2 - 1);
+                } else if (turnSeconds2 > 0) {
+                    turnSetSeconds2((turnSeconds2) => turnSeconds2 - 1);
+                    turnSetMilliseconds2(99);
+                } else if(turnMinutes2 > 0) {
+                    turnSetMinutes2((turnMinutes2) => turnMinutes2 - 1);
+                    turnSetSeconds2(59);
+                    turnSetMilliseconds2(99);
                 } 
             }
         }, 10);
     }
 
     if(minutes === 0 && seconds === 0 && milliseconds === 0 && playStarted){
-        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 1 time expired!"})
+        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 1 time expired!"});
+        setIsRunning(false);
     } else if(minutes2 === 0 && seconds2 === 0 && milliseconds2 === 0 && playStarted) {
-        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 2 time expired!"})
+        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 2 time expired!"});
+        setIsRunning(false);
     }
     return () => clearInterval(interval);
 }, [milliseconds, seconds, minutes, isRunning, milliseconds2, seconds2, minutes2]);
@@ -123,6 +157,9 @@ function startP1Timer () {
     setIsP1Turn(true);
     if(minutes !== 0 || seconds !== 0 || milliseconds !== 0 &&
          minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0){
+        turnSetMilliseconds(0)
+        turnSetMinutes(1)
+        turnSetSeconds(0)
         setIsRunning(true);
     }else{
         window.alert("Reload page to restart game!");
@@ -136,6 +173,9 @@ function startP2Timer () {
     setIsP1Turn(false);
     if(minutes !== 0 || seconds !== 0 || milliseconds !== 0 &&
          minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0){
+        turnSetMilliseconds2(0)
+        turnSetMinutes2(1)
+        turnSetSeconds2(0)
         setIsRunning(true);
     }else{
         window.alert("Reload page to restart game!");
@@ -160,6 +200,12 @@ function stopTimer () {
         setMilliseconds2(0);
         setSeconds2(0);
         setMinutes2(30);
+        turnSetMilliseconds(0)
+        turnSetMilliseconds2(0)
+        turnSetMinutes(1)
+        turnSetMinutes2(1)
+        turnSetSeconds(0)
+        turnSetSeconds2(0)
     }
 
     //Handlers
@@ -206,6 +252,9 @@ function stopTimer () {
             </button>
             )}
         </ButtonWrapper>
+        <Timer milliseconds={turnMilliseconds} seconds={turnSeconds} 
+            minutes={turnMinutes} milliseconds2={turnMilliseconds2} seconds2={turnSeconds2} 
+            minutes2={turnMinutes2}/>
         </div>
     );
 }
