@@ -1,6 +1,6 @@
 import './App.css';
-import CountdownTimer from "./components/CountdownTimer";
-import ScoreTracker from "./components/ScoreTracker";
+import CountdownTimer from "./components/CountdownTimer.jsx";
+import ScoreTracker from "./components/ScoreTracker.jsx";
 
 function App() {
   return <div className="App">

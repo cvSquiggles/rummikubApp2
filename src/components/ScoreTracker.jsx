@@ -1,6 +1,6 @@
 import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
-import EndMatchPopup from "./EndMatchPopup";
+import EndMatchPopup from "./EndMatchPopup.jsx";
 
 const ScoreTrackerWrapper = styled.div`
     margin-top:2vh;
@@ -77,8 +77,8 @@ export default function CountdownTimer(){
 const [isGameCreated, setGameCreated] = useState(false);
 const [endGamePopUpTrigger, setEndGamePopUpTrigger] = useState(false);
 //Game specifics
-const [p1Name, setP1Name] = useState("STV");
-const [p2Name, setP2Name] = useState("BRE");
+const [p1Name, setP1Name] = useState("");
+const [p2Name, setP2Name] = useState("");
 const [gameCode, setGameCode] = useState("");
 const [roundCount, setRoundCount] = useState(1);
 const [p1RoundScore, setP1RoundScore] = useState(0);
