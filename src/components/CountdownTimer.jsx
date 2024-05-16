@@ -155,8 +155,8 @@ function startP1Timer () {
         setPlayStarted(true);
     }
     setIsP1Turn(true);
-    if(minutes !== 0 || seconds !== 0 || milliseconds !== 0 &&
-         minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0){
+    if((minutes !== 0 || seconds !== 0 || milliseconds !== 0) &&
+         (minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0)){
         turnSetMilliseconds(0)
         turnSetMinutes(1)
         turnSetSeconds(0)
@@ -171,8 +171,8 @@ function startP2Timer () {
         setPlayStarted(true);
     }
     setIsP1Turn(false);
-    if(minutes !== 0 || seconds !== 0 || milliseconds !== 0 &&
-         minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0){
+    if((minutes !== 0 || seconds !== 0 || milliseconds !== 0) &&
+         (minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0)){
         turnSetMilliseconds2(0)
         turnSetMinutes2(1)
         turnSetSeconds2(0)
