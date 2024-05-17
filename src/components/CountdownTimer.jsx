@@ -9,7 +9,7 @@ const ButtonWrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
     background-color: #227;
-    color: #eee;
+    color: #eee;W
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -57,11 +57,26 @@ const ButtonWrapper = styled.div`
 
 document.body.style.background="#282c34";
 export default function CountdownTimer(){
+
+    //local storage grabs
+    //const unparse = localStorage.getItem('match')
+    //const match = JSON.parse(unparse)
+
+//Local storage setup
+localStorage.setItem("player1",'{}');
+var unparse = localStorage.getItem('player1');
+var player1 = JSON.parse(unparse)
+localStorage.setItem("player2",'{}');
+var unparse = localStorage.getItem('player2');
+var player2 = JSON.parse(unparse)
+localStorage.setItem("match",'{}');
+//var unparse = localStorage.getItem('match');
+//var match = JSON.parse(unparse)
+
 //General
 const [isRunning, setIsRunning] = useState(null);
 const [playStarted, setPlayStarted] = useState(false);
 const [isP1Turn, setIsP1Turn] = useState(false);
-const [isP2Turn, setIsP2Turn] = useState(false);
 //P1 round timer
 const [minutes, setMinutes] = useState(30);
 const [seconds, setSeconds] = useState(0);
@@ -149,6 +164,13 @@ useEffect(() => {
     return () => clearInterval(interval);
 }, [milliseconds, seconds, minutes, isRunning, milliseconds2, seconds2, minutes2]);
 
+//Local storage functions
+function updateP1Minutes() {
+    var unparse = localStorage.getItem('match');
+    var match = JSON.parse(unparse);
+    setMinutes(match.p1Minutes);
+}
+
 //Functions
 function startP1Timer () {
     if(!playStarted) {
@@ -221,7 +243,7 @@ function stopTimer () {
     const changeMinutes2= (e) => {
         setMinutes2(e.target.value)
     }
-
+    //<h1>{match.p1Minutes}</h1>
     return(
         <div>
         {showEndScreen.show && <h2 className="title text-light">{showEndScreen.message}</h2>}

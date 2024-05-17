@@ -1,6 +1,8 @@
 import React,{ useState, useEffect } from "react";
 import styled from "styled-components";
 import EndMatchPopup from "./EndMatchPopup.jsx";
+import { fetch_addPlayer, fetch_match, fetch_player } from "../Fetch/Fetch-API.js";
+import CountdownTimer from "./CountdownTimer.jsx";
 
 const ScoreTrackerWrapper = styled.div`
     margin-top:2vh;
@@ -72,7 +74,7 @@ input:hover{
 }
 `;
 document.body.style.background="#282c34";
-export default function CountdownTimer(){
+export default function ScoreTracker(){
 //General
 const [isGameCreated, setGameCreated] = useState(false);
 const [endGamePopUpTrigger, setEndGamePopUpTrigger] = useState(false);
@@ -86,16 +88,44 @@ const [p2RoundScore, setP2RoundScore] = useState(0);
 const [p1MatchScore, setP1MatchScore] = useState(0);
 const [p2MatchScore, setP2MatchScore] = useState(0);
 const [winningPlayer, setWinningPlayer] = useState("No contest!");
-
+//Data (holds json body) and resdata (holds api result) variable for queries
+var data = {};
+var resdata = {};
+// const [minutes,setMinutes]
 
 //Functions
-function handleGameCreate(e) {
+async function handleGameCreate(e) {
     e.preventDefault();
     if (gameCode !== "" && p1Name !== "" && p2Name !== ""){
         setGameCreated(true);
     } else{
         alert("Please enter a game code as well as both player tags!")
     }
+
+    //Check if p1 exists in the database, and if not, then create them
+    data ={
+        tag: p1Name
+    }
+
+    resdata = await fetch_player(data); 
+
+    if(resdata){
+        console.log(resdata)
+        localStorage.setItem("player1",JSON.stringify(resdata));
+    }
+
+    // API fetch match data if it exists
+    data ={   //Define data for api query
+        gameCode
+    }
+    resdata = await fetch_match(data); //Run query and store resulting data
+
+    if(resdata){                                                        //If the result isn't empty, store it in local storage
+        localStorage.setItem("match",JSON.stringify(resdata[0]));
+    }
+
+    //Update match data displayed from new local storage
+    CountdownTimer.updateP1Minutes();
 
 }
 
@@ -120,7 +150,6 @@ function handleSubmitRoundScore(e) {
 }
 
 function handleSubmitReportGame(e) {
-    
 
     if(p1MatchScore > p2MatchScore) {
         setWinningPlayer("Player 1 wins! <(^_^<)");
