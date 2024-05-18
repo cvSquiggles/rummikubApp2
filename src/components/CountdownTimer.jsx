@@ -2,6 +2,7 @@ import React,{ useState, useEffect } from "react";
 import {BsFillPlayFill, BsPauseFill, BsStopFill} from "react-icons/bs"
 import Timer from "./Timer.jsx";
 import styled from "styled-components";
+import { fetch_matchTime } from "../Fetch/Fetch-API.js";
 
 const ButtonWrapper = styled.div`
     margin-top:0vh;
@@ -56,44 +57,10 @@ const ButtonWrapper = styled.div`
 
 
 document.body.style.background="#282c34";
-export default function CountdownTimer(){
+const CountdownTimer = (p) => {
 
-    //local storage grabs
-    //const unparse = localStorage.getItem('match')
-    //const match = JSON.parse(unparse)
-
-//Local storage setup
-localStorage.setItem("player1",'{}');
-var unparse = localStorage.getItem('player1');
-var player1 = JSON.parse(unparse)
-localStorage.setItem("player2",'{}');
-var unparse = localStorage.getItem('player2');
-var player2 = JSON.parse(unparse)
-localStorage.setItem("match",'{}');
-//var unparse = localStorage.getItem('match');
-//var match = JSON.parse(unparse)
-
-//General
-const [isRunning, setIsRunning] = useState(null);
-const [playStarted, setPlayStarted] = useState(false);
-const [isP1Turn, setIsP1Turn] = useState(false);
-//P1 round timer
-const [minutes, setMinutes] = useState(30);
-const [seconds, setSeconds] = useState(0);
-const [milliseconds, setMilliseconds] = useState(0);
-//P2 round timer
-const [minutes2, setMinutes2] = useState(30);
-const [seconds2, setSeconds2] = useState(0);
-const [milliseconds2, setMilliseconds2] = useState(0);
-//P1 turn timer
-const [turnMinutes, turnSetMinutes] = useState(1);
-const [turnSeconds, turnSetSeconds] = useState(0);
-const [turnMilliseconds, turnSetMilliseconds] = useState(0);
-//P2 turn timer
-const [turnMinutes2, turnSetMinutes2] = useState(1);
-const [turnSeconds2, turnSetSeconds2] = useState(0);
-const [turnMilliseconds2, turnSetMilliseconds2] = useState(0);
-// End of Time
+    var data = {};
+    var resdata = {};
 
 const [showEndScreen,setShowEndScreen]=useState({
     show: false,
@@ -102,159 +69,174 @@ const [showEndScreen,setShowEndScreen]=useState({
 
 useEffect(() => {
     let interval;
-    if(isRunning){
+    if(p.isRunning){
         interval = setInterval (() => {
-            if(isP1Turn){
+            if(p.isP1Turn){
                 //Round timer
-                if(milliseconds > 0) {
-                    setMilliseconds((milliseconds) => milliseconds - 1);
-                } else if (seconds > 0) {
-                    setSeconds((seconds) => seconds - 1);
-                    setMilliseconds(99);
-                } else if(minutes > 0) {
-                    setMinutes((minutes) => minutes - 1);
-                    setSeconds(59);
-                    setMilliseconds(99);
+                if(p.milliseconds > 0) {
+                    p.setMilliseconds(p.milliseconds - 1);
+                } else if (p.seconds > 0) {
+                    p.setSeconds(p.seconds - 1);
+                    p.setMilliseconds(99);
+                } else if(p.minutes > 0) {
+                    p.setMinutes(p.minutes - 1);
+                    p.setSeconds(59);
+                    p.setMilliseconds(99);
                 } 
                 //Turn timer
-                if(turnMilliseconds > 0) {
-                    turnSetMilliseconds((turnMilliseconds) => turnMilliseconds - 1);
-                } else if (turnSeconds > 0) {
-                    turnSetSeconds((turnSeconds) => turnSeconds - 1);
-                    turnSetMilliseconds(99);
-                } else if(turnMinutes > 0) {
-                    turnSetMinutes((turnMinutes) => turnMinutes - 1);
-                    turnSetSeconds(59);
-                    turnSetMilliseconds(99);
+                if(p.turnMilliseconds > 0) {
+                    p.setTurnMilliseconds(p.turnMilliseconds - 1);
+                } else if (p.turnSeconds > 0) {
+                    p.setTurnSeconds(p.turnSeconds - 1);
+                    p.setTurnMilliseconds(99);
+                } else if(p.turnMinutes > 0) {
+                    p.setTurnMinutes(p.turnMinutes - 1);
+                    p.setTurnSeconds(59);
+                    p.setTurnMilliseconds(99);
                 } 
             }else {
                 //Round timer
-                if(milliseconds2 > 0) {
-                    setMilliseconds2((milliseconds2) => milliseconds2 - 1);
-                } else if (seconds2 > 0) {
-                    setSeconds2((seconds2) => seconds2 - 1);
-                    setMilliseconds2(99);
-                } else if(minutes2 > 0) {
-                    setMinutes2((minutes2) => minutes2 - 1);
-                    setSeconds2(59);
-                    setMilliseconds2(99);
+                if(p.milliseconds2 > 0) {
+                    p.setMilliseconds2(p.milliseconds2 - 1);
+                } else if (p.seconds2 > 0) {
+                    p.setSeconds2(p.seconds2 - 1);
+                    p.setMilliseconds2(99);
+                } else if(p.minutes2 > 0) {
+                    p.setMinutes2(p.minutes2 - 1);
+                    p.setSeconds2(59);
+                    p.setMilliseconds2(99);
                 }
                 //Turn timer
-                if(turnMilliseconds2 > 0) {
-                    turnSetMilliseconds2((turnMilliseconds2) => turnMilliseconds2 - 1);
-                } else if (turnSeconds2 > 0) {
-                    turnSetSeconds2((turnSeconds2) => turnSeconds2 - 1);
-                    turnSetMilliseconds2(99);
-                } else if(turnMinutes2 > 0) {
-                    turnSetMinutes2((turnMinutes2) => turnMinutes2 - 1);
-                    turnSetSeconds2(59);
-                    turnSetMilliseconds2(99);
+                if(p.turnMilliseconds2 > 0) {
+                    p.setTurnMilliseconds2(p.turnMilliseconds2 - 1);
+                } else if (p.turnSeconds2 > 0) {
+                    p.setTurnSeconds2(p.turnSeconds2 - 1);
+                    p.setTurnMilliseconds2(99);
+                } else if(p.turnMinutes2 > 0) {
+                    p.setTurnMinutes2(p.turnMinutes2 - 1);
+                    p.setTurnSeconds2(59);
+                    p.setTurnMilliseconds2(99);
                 } 
             }
         }, 10);
     }
 
-    if(minutes === 0 && seconds === 0 && milliseconds === 0 && playStarted){
+    if(p.minutes === 0 && p.seconds === 0 && p.milliseconds === 0 && p.playStarted){
         setShowEndScreen({ ...showEndScreen, show: true, message: "Player 1 time expired!"});
-        setIsRunning(false);
-    } else if(minutes2 === 0 && seconds2 === 0 && milliseconds2 === 0 && playStarted) {
+        p.setIsRunning(false);
+    } else if(p.minutes2 === 0 && p.seconds2 === 0 && p.milliseconds2 === 0 && p.playStarted) {
         setShowEndScreen({ ...showEndScreen, show: true, message: "Player 2 time expired!"});
-        setIsRunning(false);
+        p.setIsRunning(false);
     }
     return () => clearInterval(interval);
-}, [milliseconds, seconds, minutes, isRunning, milliseconds2, seconds2, minutes2]);
-
-//Local storage functions
-function updateP1Minutes() {
-    var unparse = localStorage.getItem('match');
-    var match = JSON.parse(unparse);
-    setMinutes(match.p1Minutes);
-}
+}, [p.milliseconds, p.seconds, p.minutes, p.isRunning, p.milliseconds2, p.seconds2, p.minutes2]);
 
 //Functions
-function startP1Timer () {
-    if(!playStarted) {
-        setPlayStarted(true);
+async function startP1Timer () {
+    if(!p.playStarted) {
+        p.setPlayStarted(true);
     }
-    setIsP1Turn(true);
-    if((minutes !== 0 || seconds !== 0 || milliseconds !== 0) &&
-         (minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0)){
-        turnSetMilliseconds(0)
-        turnSetMinutes(1)
-        turnSetSeconds(0)
-        setIsRunning(true);
+    p.setIsP1Turn(true);
+    if((p.minutes !== 0 || p.seconds !== 0 || p.milliseconds !== 0) &&
+         (p.minutes2 !== 0 || p.seconds2 !== 0 || p.milliseconds2 !== 0)){
+        p.setTurnMilliseconds(0)
+        p.setTurnMinutes(1)
+        p.setTurnSeconds(0)
+        p.setIsRunning(true);
     }else{
         window.alert("Reload page to restart game!");
     }
+
+    data = {
+        p1Minutes: p.minutes,
+        p1Seconds: p.seconds,
+        p1Milli: p.milliseconds,
+        p2Minutes: p.minutes2,
+        p2Seconds: p.seconds2,
+        p2Milli: p.milliseconds2,
+        gameCode: p.gameCode,
+    }
+    await fetch_matchTime(data);
 }
 
-function startP2Timer () {
-    if(!playStarted) {
-        setPlayStarted(true);
+async function startP2Timer () {
+    if(!p.playStarted) {
+        p.setPlayStarted(true);
     }
-    setIsP1Turn(false);
-    if((minutes !== 0 || seconds !== 0 || milliseconds !== 0) &&
-         (minutes2 !== 0 || seconds2 !== 0 || milliseconds2 !== 0)){
-        turnSetMilliseconds2(0)
-        turnSetMinutes2(1)
-        turnSetSeconds2(0)
-        setIsRunning(true);
+    p.setIsP1Turn(false);
+    if((p.minutes !== 0 || p.seconds !== 0 || p.milliseconds !== 0) &&
+         (p.minutes2 !== 0 || p.seconds2 !== 0 || p.milliseconds2 !== 0)){
+        p.setTurnMilliseconds2(0)
+        p.setTurnMinutes2(1)
+        p.setTurnSeconds2(0)
+        p.setIsRunning(true);
     }else{
         window.alert("Reload page to restart game!");
     }
+
+    data = {
+        p1Minutes: p.minutes,
+        p1Seconds: p.seconds,
+        p1Milli: p.milliseconds,
+        p2Minutes: p.minutes2,
+        p2Seconds: p.seconds2,
+        p2Milli: p.milliseconds2,
+        gameCode: p.gameCode,
+    }
+    await fetch_matchTime(data);
 }
 
 function pauseTimer () {
-    setIsRunning(false);
+    p.setIsRunning(false);
 }
 
 function stopTimer () {
     resetTimer();
-    setPlayStarted(false);
+    p.setPlayStarted(false);
     setShowEndScreen({ ...showEndScreen, show: false})
 }
 
-    function resetTimer() {
-        setIsRunning(false);
-        setMilliseconds(0);
-        setSeconds(0);
-        setMinutes(30);
-        setMilliseconds2(0);
-        setSeconds2(0);
-        setMinutes2(30);
-        turnSetMilliseconds(0)
-        turnSetMilliseconds2(0)
-        turnSetMinutes(1)
-        turnSetMinutes2(1)
-        turnSetSeconds(0)
-        turnSetSeconds2(0)
+function resetTimer() {
+    p.setIsRunning(false);
+    p.setMilliseconds(0);
+    p.setSeconds(0);
+    p.setMinutes(30);
+    p.setMilliseconds2(0);
+    p.setSeconds2(0);
+    p.setMinutes2(30);
+    p.setTurnMilliseconds(0)
+    p.setTurnMilliseconds2(0)
+    p.setTurnMinutes(1)
+    p.setTurnMinutes2(1)
+    p.setTurnSeconds(0)
+    p.setTurnSeconds2(0)
     }
 
     //Handlers
     const changeSeconds = (e) => {
-        setSeconds(e.target.value)
+        p.setSeconds(e.target.value)
     }
     const changeMinutes= (e) => {
-        setMinutes(e.target.value)
+        p.setMinutes(e.target.value)
     }
     const changeSeconds2 = (e) => {
-        setSeconds2(e.target.value)
+        p.setSeconds2(e.target.value)
     }
     const changeMinutes2= (e) => {
-        setMinutes2(e.target.value)
+        p.setMinutes2(e.target.value)
     }
     //<h1>{match.p1Minutes}</h1>
     return(
         <div>
         {showEndScreen.show && <h2 className="title text-light">{showEndScreen.message}</h2>}
-            <Timer milliseconds={milliseconds} seconds={seconds} 
-            minutes={minutes} changeSeconds={changeSeconds}
-            changeMinutes={changeMinutes} milliseconds2={milliseconds2} seconds2={seconds2} 
-            minutes2={minutes2} changeSeconds2={changeSeconds2}
+            <Timer milliseconds={p.milliseconds} seconds={p.seconds} 
+            minutes={p.minutes} changeSeconds={changeSeconds}
+            changeMinutes={changeMinutes} milliseconds2={p.milliseconds2} seconds2={p.seconds2} 
+            minutes2={p.minutes2} changeSeconds2={changeSeconds2}
             changeMinutes2={changeMinutes2} />
 
         <ButtonWrapper>
-            {(!isRunning || isP1Turn) && (
+            {(!p.isRunning || p.isP1Turn) && (
             <button className="P1EndTurn-Btn" onClick={startP2Timer}>
                 <BsFillPlayFill/>
             </button>
@@ -268,16 +250,17 @@ function stopTimer () {
                 <BsStopFill/>
             </button>
             
-            {(!isRunning || !isP1Turn) && (
+            {(!p.isRunning || !p.isP1Turn) && (
             <button className="P2EndTurn-Btn" onClick={startP1Timer}>
                 <BsFillPlayFill/>
             </button>
             )}
         </ButtonWrapper>
-        <Timer milliseconds={turnMilliseconds} seconds={turnSeconds} 
-            minutes={turnMinutes} milliseconds2={turnMilliseconds2} seconds2={turnSeconds2} 
-            minutes2={turnMinutes2}/>
+        <Timer milliseconds={p.turnMilliseconds} seconds={p.turnSeconds} 
+            minutes={p.turnMinutes} milliseconds2={p.turnMilliseconds2} seconds2={p.turnSeconds2} 
+            minutes2={p.turnMinutes2}/>
         </div>
     );
 }
 
+export default CountdownTimer;
