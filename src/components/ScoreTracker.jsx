@@ -246,7 +246,7 @@ const ScoreTracker = (p) => {
             localP1MatchScore = p.p1MatchScore - p.p1RoundScore;
             p.setP1MatchScore(localP1MatchScore);
             localP2MatchScore = p.p2MatchScore + p.p1RoundScore;
-            p.setP2MatchScore(p.localP2MatchScore);
+            p.setP2MatchScore(localP2MatchScore);
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
         } else{
