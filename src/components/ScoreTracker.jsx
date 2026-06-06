@@ -236,17 +236,15 @@ const ScoreTracker = (p) => {
         let localP2MatchScore;
 
         if(p.p1RoundScore < p.p2RoundScore) {
-            localP1MatchScore = p.p1MatchScore + p.p2RoundScore;
+            localP1MatchScore = p.p2RoundScore - p.p1RoundScore;
             p.setP1MatchScore(localP1MatchScore);
-            localP2MatchScore = p.p2MatchScore - p.p2RoundScore;
-            p.setP2MatchScore(localP2MatchScore);
+            localP2MatchScore = p.p2MatchScore;
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
         } else if(p.p2RoundScore < p.p1RoundScore){
-            localP1MatchScore = p.p1MatchScore - p.p1RoundScore;
-            p.setP1MatchScore(localP1MatchScore);
-            localP2MatchScore = p.p2MatchScore + p.p1RoundScore;
+            localP2MatchScore = p.p1RoundScore - p.p2RoundScore;
             p.setP2MatchScore(localP2MatchScore);
+            localP1MatchScore = p.p1MatchScore;
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
         } else{
