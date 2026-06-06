@@ -1,9 +1,7 @@
 import './App.css';
-import React,{ useState, useEffect } from "react";
+import React,{ useState } from "react";
 import CountdownTimer from "./components/CountdownTimer.jsx";
 import ScoreTracker from "./components/ScoreTracker.jsx";
-//import Parent from "./components/Parent.jsx";
-//import Fetch from './components/Fetch.jsx';
 
 
 function App(p) {

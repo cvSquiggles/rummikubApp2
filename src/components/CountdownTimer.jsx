@@ -60,7 +60,6 @@ document.body.style.background="#282c34";
 const CountdownTimer = (p) => {
 
     var data = {};
-    var resdata = {};
 
 const [showEndScreen,setShowEndScreen]=useState({
     show: false,
@@ -122,10 +121,10 @@ useEffect(() => {
     }
 
     if(p.minutes === 0 && p.seconds === 0 && p.milliseconds === 0 && p.playStarted){
-        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 1 time expired!"});
+        setShowEndScreen(s => ({ ...s, show: true, message: "Player 1 time expired!"}));
         p.setIsRunning(false);
     } else if(p.minutes2 === 0 && p.seconds2 === 0 && p.milliseconds2 === 0 && p.playStarted) {
-        setShowEndScreen({ ...showEndScreen, show: true, message: "Player 2 time expired!"});
+        setShowEndScreen(s => ({ ...s, show: true, message: "Player 2 time expired!"}));
         p.setIsRunning(false);
     }
     return () => clearInterval(interval);

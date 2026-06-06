@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsStopwatch, BsCircleFill, Bs1Circle, Bs2Circle } from "react-icons/bs";
+import { BsCircleFill, Bs1Circle, Bs2Circle } from "react-icons/bs";
 import styled from "styled-components";
 
 const TimeWrapper = styled.div`

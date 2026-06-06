@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import EndMatchPopup from "./EndMatchPopup.jsx";
 import { fetch_addPlayer, fetch_match, fetch_player, fetch_player_id,
@@ -79,18 +79,6 @@ const ScoreTracker = (p) => {
     var data = {};
     var resdata = {};
     var resdata2 = {};
-    function isNumeric(str) {
-        if(typeof str != "string") return false
-        return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
-        !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
-    }
-
-    //Used to add brief delays on local variable updates before pushing information to db
-    const delay = async (ms) => {
-        return new Promise((resolve) => 
-            setTimeout(resolve, ms));
-    };
-
 
     //Functions
     async function handleGameCreate(e) {
@@ -175,14 +163,14 @@ const ScoreTracker = (p) => {
         //Check if query found record, if it did, update the variables...
         if(resdata.tag !== 'FAILED'){
             //localStorage.setItem("player1",JSON.stringify(resdata));
-            var localP1id = resdata.id;
+            let localP1id = resdata.id;
             p.setP1id(localP1id);
             p.setP1Name(resdata.tag);
         } else {  //...otherwise add this new player to the database, and do a new pull to get the id
             await fetch_addPlayer(data);
 
             resdata = (await fetch_player(data));
-            var localP1id = resdata.id;
+            localP1id = resdata.id;
             p.setP1id(localP1id);
             p.setP1Name(resdata.tag);
         }
@@ -198,14 +186,14 @@ const ScoreTracker = (p) => {
         //Check if query found record, if it did, update the variables...
         if(resdata.tag !== 'FAILED'){
             //localStorage.setItem("player1",JSON.stringify(resdata));
-            var localP2id = resdata.id;
+            let localP2id = resdata.id;
             p.setP2id(localP2id);
             p.setP2Name(resdata.tag);
         } else {  //...otherwise add this new player to the database, and do a new pull to get the id
             await fetch_addPlayer(data);
 
             resdata = (await fetch_player(data));
-            var localP2id = resdata.id;
+            localP2id = resdata.id;
             p.setP2id(localP2id);
             p.setP2Name(resdata.tag);
         }
@@ -243,16 +231,16 @@ const ScoreTracker = (p) => {
          }
 
         if(p.p1RoundScore < p.p2RoundScore) {
-            var localP1MatchScore = p.p1MatchScore + p.p2RoundScore;
+            let localP1MatchScore = p.p1MatchScore + p.p2RoundScore;
             p.setP1MatchScore(localP1MatchScore);
-            var localP2MatchScore = p.p2MatchScore - p.p2RoundScore;
+            let localP2MatchScore = p.p2MatchScore - p.p2RoundScore;
             p.setP2MatchScore(localP2MatchScore);
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
         } else if(p.p2RoundScore < p.p1RoundScore){
-            var localP1MatchScore = p.p1MatchScore - p.p1RoundScore;
+            localP1MatchScore = p.p1MatchScore - p.p1RoundScore;
             p.setP1MatchScore(localP1MatchScore);
-            var localP2MatchScore = p.p2MatchScore + p.p1RoundScore;
+            localP2MatchScore = p.p2MatchScore + p.p1RoundScore;
             p.setP2MatchScore(p.localP2MatchScore);
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
