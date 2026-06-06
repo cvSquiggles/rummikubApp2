@@ -234,22 +234,39 @@ const ScoreTracker = (p) => {
 
         let localP1MatchScore;
         let localP2MatchScore;
+        let scoreDiff;
 
         if(p.p1RoundScore < p.p2RoundScore) {
-            localP1MatchScore = p.p2RoundScore - p.p1RoundScore;
-            p.setP1MatchScore(localP1MatchScore);
-            localP2MatchScore = p.p2MatchScore;
+
+            scoreDiff = p.p2RoundScore - p.p1RoundScore; //Get the difference
+
+            localP1MatchScore = p.p1MatchScore + scoreDiff;
+            p.setP1MatchScore(localP1MatchScore); //Add it to the round winners score
+
+            localP2MatchScore = p.p2MatchScore - scoreDiff;
+            p.setP2MatchScore(localP2MatchScore); //subtract it from the round losers score
+
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
+
         } else if(p.p2RoundScore < p.p1RoundScore){
-            localP2MatchScore = p.p1RoundScore - p.p2RoundScore;
+
+            scoreDiff = p.p1RoundScore - p.p2RoundScore; //Get the difference
+
+            localP1MatchScore = p.p1MatchScore - scoreDiff; //subtract it from the round losers score
+            p.setP1MatchScore(localP1MatchScore);
+
+            localP2MatchScore = p.p2MatchScore + scoreDiff; //Add it to the round winners score
             p.setP2MatchScore(localP2MatchScore);
-            localP1MatchScore = p.p1MatchScore;
+
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
+
         } else{
+            //Unlikely, but a draw, nobody gets nothin, round was a wash
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
+
         }
         var localRoundCount = p.roundCount + 1;
         p.setRoundCount(localRoundCount);
