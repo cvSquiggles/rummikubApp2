@@ -66,6 +66,7 @@ const [showEndScreen,setShowEndScreen]=useState({
     message: "Player 1 time expired!"
 })
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
 useEffect(() => {
     let interval;
     if(p.isRunning){
