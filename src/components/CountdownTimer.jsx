@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useEffect, useRef } from "react";
 import {BsFillPlayFill, BsPauseFill, BsStopFill} from "react-icons/bs"
 import Timer from "./Timer.jsx";
 import styled from "styled-components";
@@ -66,70 +66,75 @@ const [showEndScreen,setShowEndScreen]=useState({
     message: "Player 1 time expired!"
 })
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+const pRef = useRef(p); //Added this and it's corresponding "useEffect" to get around a railway eslint error wanting p to be in the larger useEffect, which we can't do
+
+useEffect(() => {
+    pRef.current = p;
+    }, [p]);
+
 useEffect(() => {
     let interval;
-    if(p.isRunning){
+    if(pRef.current.isRunning){
         interval = setInterval (() => {
-            if(p.isP1Turn){
+            if(pRef.current.isP1Turn){
                 //Round timer
-                if(p.milliseconds > 0) {
-                    p.setMilliseconds(p.milliseconds - 1);
-                } else if (p.seconds > 0) {
-                    p.setSeconds(p.seconds - 1);
-                    p.setMilliseconds(99);
-                } else if(p.minutes > 0) {
-                    p.setMinutes(p.minutes - 1);
-                    p.setSeconds(59);
-                    p.setMilliseconds(99);
+                if(pRef.current.milliseconds > 0) {
+                    pRef.current.setMilliseconds(pRef.current.milliseconds - 1);
+                } else if (pRef.current.seconds > 0) {
+                    pRef.current.setSeconds(pRef.current.seconds - 1);
+                    pRef.current.setMilliseconds(99);
+                } else if(pRef.current.minutes > 0) {
+                    pRef.current.setMinutes(pRef.current.minutes - 1);
+                    pRef.current.setSeconds(59);
+                    pRef.current.setMilliseconds(99);
                 } 
                 //Turn timer
-                if(p.turnMilliseconds > 0) {
-                    p.setTurnMilliseconds(p.turnMilliseconds - 1);
-                } else if (p.turnSeconds > 0) {
-                    p.setTurnSeconds(p.turnSeconds - 1);
-                    p.setTurnMilliseconds(99);
-                } else if(p.turnMinutes > 0) {
-                    p.setTurnMinutes(p.turnMinutes - 1);
-                    p.setTurnSeconds(59);
-                    p.setTurnMilliseconds(99);
+                if(pRef.current.turnMilliseconds > 0) {
+                    pRef.current.setTurnMilliseconds(pRef.current.turnMilliseconds - 1);
+                } else if (pRef.current.turnSeconds > 0) {
+                    pRef.current.setTurnSeconds(pRef.current.turnSeconds - 1);
+                    pRef.current.setTurnMilliseconds(99);
+                } else if(pRef.current.turnMinutes > 0) {
+                    pRef.current.setTurnMinutes(pRef.current.turnMinutes - 1);
+                    pRef.current.setTurnSeconds(59);
+                    pRef.current.setTurnMilliseconds(99);
                 } 
             }else {
                 //Round timer
-                if(p.milliseconds2 > 0) {
-                    p.setMilliseconds2(p.milliseconds2 - 1);
-                } else if (p.seconds2 > 0) {
-                    p.setSeconds2(p.seconds2 - 1);
-                    p.setMilliseconds2(99);
-                } else if(p.minutes2 > 0) {
-                    p.setMinutes2(p.minutes2 - 1);
-                    p.setSeconds2(59);
-                    p.setMilliseconds2(99);
+                if(pRef.current.milliseconds2 > 0) {
+                    pRef.current.setMilliseconds2(pRef.current.milliseconds2 - 1);
+                } else if (pRef.current.seconds2 > 0) {
+                    pRef.current.setSeconds2(pRef.current.seconds2 - 1);
+                    pRef.current.setMilliseconds2(99);
+                } else if(pRef.current.minutes2 > 0) {
+                    pRef.current.setMinutes2(pRef.current.minutes2 - 1);
+                    pRef.current.setSeconds2(59);
+                    pRef.current.setMilliseconds2(99);
                 }
                 //Turn timer
-                if(p.turnMilliseconds2 > 0) {
-                    p.setTurnMilliseconds2(p.turnMilliseconds2 - 1);
-                } else if (p.turnSeconds2 > 0) {
-                    p.setTurnSeconds2(p.turnSeconds2 - 1);
-                    p.setTurnMilliseconds2(99);
-                } else if(p.turnMinutes2 > 0) {
-                    p.setTurnMinutes2(p.turnMinutes2 - 1);
-                    p.setTurnSeconds2(59);
-                    p.setTurnMilliseconds2(99);
+                if(pRef.current.turnMilliseconds2 > 0) {
+                    pRef.current.setTurnMilliseconds2(pRef.current.turnMilliseconds2 - 1);
+                } else if (pRef.current.turnSeconds2 > 0) {
+                    pRef.current.setTurnSeconds2(pRef.current.turnSeconds2 - 1);
+                    pRef.current.setTurnMilliseconds2(99);
+                } else if(pRef.current.turnMinutes2 > 0) {
+                    pRef.current.setTurnMinutes2(pRef.current.turnMinutes2 - 1);
+                    pRef.current.setTurnSeconds2(59);
+                    pRef.current.setTurnMilliseconds2(99);
                 } 
             }
         }, 10);
     }
 
-    if(p.minutes === 0 && p.seconds === 0 && p.milliseconds === 0 && p.playStarted){
+    if(pRef.current.minutes === 0 && pRef.current.seconds === 0 && pRef.current.milliseconds === 0 && pRef.current.playStarted){
         setShowEndScreen(s => ({ ...s, show: true, message: "Player 1 time expired!"}));
-        p.setIsRunning(false);
-    } else if(p.minutes2 === 0 && p.seconds2 === 0 && p.milliseconds2 === 0 && p.playStarted) {
+        pRef.current.setIsRunning(false);
+    } else if(pRef.current.minutes2 === 0 && pRef.current.seconds2 === 0 && pRef.current.milliseconds2 === 0 && pRef.current.playStarted) {
         setShowEndScreen(s => ({ ...s, show: true, message: "Player 2 time expired!"}));
-        p.setIsRunning(false);
+        pRef.current.setIsRunning(false);
     }
     return () => clearInterval(interval);
-}, [p.milliseconds, p.seconds, p.minutes, p.isRunning, p.milliseconds2, p.seconds2, p.minutes2]);
+}, [pRef.current.milliseconds, pRef.current.seconds, pRef.current.minutes, pRef.current.isRunning, pRef.current.milliseconds2, pRef.current.seconds2, pRef.current.minutes2]);
 
 //Functions
 async function startP1Timer () {
