@@ -161,9 +161,10 @@ const ScoreTracker = (p) => {
         resdata = (await fetch_player(data)); 
         
         //Check if query found record, if it did, update the variables...
+        let localP1id;
         if(resdata.tag !== 'FAILED'){
             //localStorage.setItem("player1",JSON.stringify(resdata));
-            let localP1id = resdata.id;
+            localP1id = resdata.id;
             p.setP1id(localP1id);
             p.setP1Name(resdata.tag);
         } else {  //...otherwise add this new player to the database, and do a new pull to get the id
@@ -184,9 +185,10 @@ const ScoreTracker = (p) => {
         resdata = (await fetch_player(data)); 
 
         //Check if query found record, if it did, update the variables...
+        let localP2id;
         if(resdata.tag !== 'FAILED'){
             //localStorage.setItem("player1",JSON.stringify(resdata));
-            let localP2id = resdata.id;
+            localP2id = resdata.id;
             p.setP2id(localP2id);
             p.setP2Name(resdata.tag);
         } else {  //...otherwise add this new player to the database, and do a new pull to get the id
@@ -230,10 +232,13 @@ const ScoreTracker = (p) => {
             return;
          }
 
+        let localP1MatchScore;
+        let localP2MatchScore;
+
         if(p.p1RoundScore < p.p2RoundScore) {
-            let localP1MatchScore = p.p1MatchScore + p.p2RoundScore;
+            localP1MatchScore = p.p1MatchScore + p.p2RoundScore;
             p.setP1MatchScore(localP1MatchScore);
-            let localP2MatchScore = p.p2MatchScore - p.p2RoundScore;
+            localP2MatchScore = p.p2MatchScore - p.p2RoundScore;
             p.setP2MatchScore(localP2MatchScore);
             p.setP1RoundScore(0)
             p.setP2RoundScore(0)
