@@ -335,16 +335,16 @@ const ScoreTracker = (p) => {
                             </div>
                             <div className="d-flex flex-row">
                                 <input type="text" maxLength={3} value={p.p1RoundScore}
-                                onChange={(e) => p.setP1RoundScore(parseInt(e.target.value))}/>
+                                onChange={(e) => p.setP1RoundScore(parseInt(e.target.value) || 0)}/>
                                 <input type="text" maxLength={3} value={p.p2RoundScore}
-                                onChange={(e) => p.setP2RoundScore(parseInt(e.target.value))}/>
+                                onChange={(e) => p.setP2RoundScore(parseInt(e.target.value) || 0)}/>
                             </div>
                             <button className="tabulateButton" onClick={(e) => handleSubmitRoundScore(e)}>Submit Round Scores!</button>
                             <div className="d-flex flex-row">
                                 <input type="text" maxLength={3} value={p.p1MatchScore}
-                                onChange={(e) => p.setP1MatchScore(parseInt(e.target.value))}/>
+                                onChange={(e) => p.setP1MatchScore(parseInt(e.target.value) || 0)}/>
                                 <input type="text" maxLength={3} value={p.p2MatchScore}
-                                onChange={(e) => p.setP2MatchScore(parseInt(e.target.value))}/>
+                                onChange={(e) => p.setP2MatchScore(parseInt(e.target.value) || 0)}/>
                             </div>
                         </form>
                         <button className="reportGameButton" onClick={(e) => handleSubmitReportGame(e)}>Report match!</button>
