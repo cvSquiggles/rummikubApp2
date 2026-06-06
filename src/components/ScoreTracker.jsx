@@ -26,7 +26,6 @@ label{
 
 .labelP1{
     margin-bottom: 0.5rem;
-    margin-right: 1rem;
     border-style: none none solid none;
 }
 
@@ -329,15 +328,17 @@ const ScoreTracker = (p) => {
                         <form>
                             
                             <div className="d-flex flex-row">
-                                <label className="labelP1">Player One</label>
-                                <label className="labelP2">Player Two</label>
+                                <div className="d-flex flex-column" style={{width: '120px', textAlign: 'center'}}>
+                                    <label className="labelP1">Player One</label>
+                                    <p className="text text-light">{p.p1Name}</p>
+                                </div>
+                                <div className="d-flex flex-column" style={{width: '120px', textAlign: 'center'}}>
+                                    <label className="labelP2">Player Two</label>
+                                    <p className="text text-light">{p.p2Name}</p>
+                                </div>
                             </div>
                             <div className="d-flex flex-row">
-                                <text className="text text-light">{p.p1Name}</text>
-                                <text className="text text-light">{p.p2Name}</text>
-                            </div>
-                            <div className="d-flex flex-row">
-                                <label className="labelP1">Round Scores</label>
+                                <label className="label">Round Scores</label>
                             </div>
                             <div className="d-flex flex-row">
                                 <input type="text" maxLength={3} value={p.p1RoundScore}

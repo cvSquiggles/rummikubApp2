@@ -1,6 +1,8 @@
+const API_BASE = 'https://rummikubappnodejs-production.up.railway.app' //New railway hosted backend URL
+
 export async function fetch_player(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/player`,{
+        const response = await fetch(`${API_BASE}/api/player`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export async function fetch_player(data) {
 
 export async function fetch_player_id(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/player_id`,{
+        const response = await fetch(`${API_BASE}/api/player_id`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +56,7 @@ export async function fetch_player_id(data) {
 
 export async function fetch_addPlayer(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/addPlayer`,{
+        const response = await fetch(`${API_BASE}/api/addPlayer`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -78,7 +80,7 @@ export async function fetch_addPlayer(data) {
 
 export async function fetch_addMatch(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/addMatch`,{
+        const response = await fetch(`${API_BASE}/api/addMatch`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -102,7 +104,7 @@ export async function fetch_addMatch(data) {
 
 export async function fetch_match(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/match`,{
+        const response = await fetch(`${API_BASE}/api/match`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -127,7 +129,7 @@ export async function fetch_match(data) {
 
 export async function fetch_match_latest(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/match_latest`,{
+        const response = await fetch(`${API_BASE}/api/match_latest`,{
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -151,7 +153,7 @@ export async function fetch_match_latest(data) {
 
 export async function fetch_matchScore(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/matchScore`,{
+        const response = await fetch(`${API_BASE}/api/matchScore`,{
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -174,7 +176,7 @@ export async function fetch_matchScore(data) {
 
 export async function fetch_matchTime(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/matchTime`,{
+        const response = await fetch(`${API_BASE}/api/matchTime`,{
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -195,7 +197,7 @@ export async function fetch_matchTime(data) {
 
 export async function fetch_matchWinner(data) {
     try {
-        const response = await fetch(`https://rummikub-app-xpress-9db7df5621fa.herokuapp.com/api/matchWinner`,{
+        const response = await fetch(`${API_BASE}/api/matchWinner`,{
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",

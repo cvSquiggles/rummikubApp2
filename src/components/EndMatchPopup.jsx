@@ -51,7 +51,7 @@ function EndMatchPopup(props) {
   return (props.trigger) ? (
     <EndMatchWrapper>
         <div className = "popup">
-            <text>{props.winner}</text>
+            <p>{props.winner}</p>
             <br/>
             <br/> 
             <button className="close-btn" onClick={(e) => startNewGame(e)}>New Game</button>

@@ -15,7 +15,7 @@ const Fetch = () => {
     <div>
       
       {player.map((player) => (
-        <text>{player.tag}</text>
+        <p>{player.tag}</p>
       ))}
     </div>
   );

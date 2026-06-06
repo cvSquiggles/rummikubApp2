@@ -58,6 +58,7 @@ function App(p) {
       turnMinutes2={turnMinutes2} setTurnMinutes2={setTurnMinutes2}
       turnSeconds2={turnSeconds2} setTurnSeconds2={setTurnSeconds2} 
       turnMilliseconds2={turnMilliseconds2} setTurnMilliseconds2={setTurnMilliseconds2}
+      gameCode={gameCode}
     />
     
     <ScoreTracker 

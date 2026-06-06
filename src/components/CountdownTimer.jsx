@@ -186,8 +186,19 @@ async function startP2Timer () {
     await fetch_matchTime(data);
 }
 
-function pauseTimer () {
+async function pauseTimer () {
     p.setIsRunning(false);
+
+    data = {
+        p1Minutes: p.minutes,
+        p1Seconds: p.seconds,
+        p1Milli: p.milliseconds,
+        p2Minutes: p.minutes2,
+        p2Seconds: p.seconds2,
+        p2Milli: p.milliseconds2,
+        gameCode: p.gameCode
+    }
+    await fetch_matchTime(data);
 }
 
 function stopTimer () {
