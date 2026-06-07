@@ -1,4 +1,4 @@
-import React,{ useState, useEffect, useRef } from "react";
+import React,{ useState, useEffect } from "react";
 import {BsFillPlayFill, BsPauseFill, BsStopFill} from "react-icons/bs"
 import Timer from "./Timer.jsx";
 import styled from "styled-components";
