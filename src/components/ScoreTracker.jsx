@@ -226,12 +226,6 @@ const ScoreTracker = (p) => {
     ////Submit round scores to match record in database and increment roundCount
     async function handleSubmitRoundScore(e) {
         e.preventDefault();
-
-        //Keep getting NaN bugs here somehow in player 2 match score. Adding logging here
-         console.log("p1RoundScore:", p.p1RoundScore, typeof p.p1RoundScore);
-         console.log("p2RoundScore:", p.p2RoundScore, typeof p.p2RoundScore);
-         console.log("p1MatchScore:", p.p1MatchScore, typeof p.p1MatchScore);
-         console.log("p2MatchScore:", p.p2MatchScore, typeof p.p2MatchScore);
         
         if (isNaN(p.p1RoundScore) || isNaN(p.p2RoundScore) || isNaN(p.p1MatchScore) || isNaN(p.p2MatchScore)) {
             alert("The round score value entered is not a valid whole integer! Please use only numeric characters.");
