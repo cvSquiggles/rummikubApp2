@@ -7,25 +7,22 @@ import { fetch_matchTime } from "../Fetch/Fetch-API.js";
 const ButtonWrapper = styled.div`
     margin-top:0vh;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
     background-color: #227;
     color: #eee;W
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     box-shadow: 5px 4px 6px rgba(0,0,0, 0.4);
     padding: 1rem 0;
 
 .P1EndTurn-Btn {
-    margin: 0.325rem 16rem 0rem 0rem;
     padding: 0.35rem 1.25rem;
-    width: 8rem;
-    height: 5rem;
+    width: clamp(4rem, 10vw, 8rem);
+    height: clamp(3rem, 8vw, 5rem);
     font-family: inherit;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: clamp(1rem, 3vw, 2rem);
     letter-spacing: 0.6px;
     border-radius: 0.3rem;
     color: #fff;
@@ -36,13 +33,12 @@ const ButtonWrapper = styled.div`
 }
 
 .P2EndTurn-Btn {
-    margin: 0.325rem 0rem 0rem 16rem;
     padding: 0.35rem 1.25rem;
-    width: 8rem;
-    height: 5rem;
+    width: clamp(4rem, 10vw, 8rem);
+    height: clamp(3rem, 8vw, 5rem);
     font-family: inherit;
     font-weight: 500;
-    font-size: 2rem;
+    font-size: clamp(1rem, 3vw, 2rem);
     letter-spacing: 0.6px;
     border-radius: 0.3rem;
     color: #fff;

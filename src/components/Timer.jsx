@@ -22,15 +22,15 @@ const TimeWrapper = styled.div`
 }
 
 .circle-half {
-    font-size: 6rem;
-    margin-right: 1rem;
+    font-size: clamp(1.5rem, 4vw, 6rem);
+    margin-right: clamp(0.25rem, 1vw, 1rem);
     transform: scaleX(-1);
     color: #222;
 }
 
 .circle-player-number {
-    font-size: 4rem;
-    margin-right: 1rem;
+    font-size: clamp(1.5rem, 3vw, 4rem);
+    margin-right: clamp(0.25rem, 1vw, 1rem);
 }
 
 label{
@@ -38,12 +38,13 @@ label{
 }
 
 input{
-    width: 100px;
+    width: 14vw;
+    max-width: 100px;
     margin-right: 1rem;
     color: #282c34;
     outline: none;
     border: none;
-    font-size: 4.5rem;
+    font-size: clamp(1.2rem, 3.5vw, 4.5rem);
     font-weight: 600;
     text-align: center;
     padding: 0rem 0.5rem;
